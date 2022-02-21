@@ -4,7 +4,7 @@
 
 <img src="./readme_data/preview.png">
 
-CLI application written in JavaScript/Node that handles multiple servers allocated dynamically who are serving a static folder.
+CLI application written in JavaScript/Node that handles multiple servers allocated dynamically that are serving a static folder.
 
 ## Table of Contents <a name="Table-of-Contents"></a>
 
@@ -66,10 +66,10 @@ Cmder user? [Go here](#cmder-setup)
 -   Click on the `Enviroment Variables` button, on the bottom-right corner
 -   Go to the `System Variables` section, select `PATH`, and click the `Edit` button <br> <img src="./readme_data/win_002.png">
 -   Click on the `New` button and paste NASM's installation path, now it should look something like this: <br> <img src="./readme_data/win_003.png">
--   Ckick ok on all the popups
+-   Click ok on all the popups
 -   Open up a console and type `nasm -h`
 -   If you see this, even after a complete system restart, it means you didn't actually paste the right installation path in the system enviroment variables. <br> <img src="./readme_data/win_004.png">
--   else, if you see things like this, it means nasm is correctly installed. Congrats! <br> <img src="./readme_data/win_005.png">
+-   Else, if you see things like this, it means nasm is correctly installed. Congrats! <br> <img src="./readme_data/win_005.png">
 -   Do the same procedure with [UPX](https://upx.github.io/)
 -   Download the latest [python](https://python.org) version (v3.10.2 as time of writing).
 -   Open the installer and before installing, tick the `Add to PATH` option like this and click install, if it gives you a path length warning, click ok/yes and go on. <br> <img src="./readme_data/win_006.png">
@@ -89,4 +89,5 @@ Using Cmder as default terminal and do not want to install anything? I got you c
 
 # Build <a name="build"></a>
 
-it's as easy as eating an apple! Just run `npm run build:win` or `yarn build:win` if you're using an OS that is not windows, or else just run `npm run build ` or ` yarn build` and you're done! the output binary is located in the `dist` folder
+It's as easy as eating an apple! Just run `npm run build:win` or `yarn build:win` if you're using an OS that is not windows, or else just run `npm run build ` or ` yarn build` and you're done!<br>
+You can find the output binary in the `dist` folder.

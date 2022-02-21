@@ -17,6 +17,7 @@
 	},
 	"devDependencies": {
 		"download": "^8.0.0",
-		"nexe": "^4.0.0-beta.19"
+		"nexe": "^4.0.0-beta.19",
+		"ansi-regex": ">=5.0.1"
 	}
 }
