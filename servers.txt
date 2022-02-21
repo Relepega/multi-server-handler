@@ -1,1 +1,0 @@
-F:\_Projects\NodeJS\tauri-test\dist

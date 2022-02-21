@@ -1,17 +1,69 @@
-const express = require('express')
-const { readFileSync } = require('fs')
-const { exit } = require('process')
+const { exit, platform } = require('process')
+const { Worker } = require('worker_threads')
+const { spinUp, listServers, selectServerToKill } = require('./functions')
 
-const paths = readFileSync('./servers.txt', { encoding: 'utf8', flag: 'r' }).split('\r\n')
-// console.log(paths)
+const scanf = require('prompt-sync')({ sigint: true })
+
+const BASE_PORT = 3000
 
 let servers = []
-const base_port = 3000
+let servers_ran = 0
 
-if (paths.length == 1 && !paths[0]) exit()
+const runService = (workerData) => {
+	const worker = new Worker('./worker.js', { workerData })
+	worker.on('message', (e) => {
+		console.log(e)
+	})
+	// worker.on('error', reject)
+	// worker.on('exit', (code) => {
+	// 	if (code !== 0) reject(new Error(`Stopped the Worker Thread with the exit code: ${code}`))
+	// })
 
-paths.forEach((p, i) => {
-	app = express()
-	app.use(express.static(p))
-	servers[i] = app.listen(base_port + i)
-})
+	return worker
+}
+
+const loop = () => {
+	console.clear()
+
+	console.log('\t\tMulti Static Sites Server\n')
+	console.log('1. Spin up a server')
+	console.log('2. Show up running servers')
+	console.log('3. Kill a server')
+	console.log('4. Quit the app and kill all the servers')
+
+	choice = scanf('\n>>> ')
+
+	switch (Number(choice)) {
+		case 1:
+			servers = [...servers, spinUp(runService, BASE_PORT + servers_ran++)]
+			return true
+			break
+		case 2:
+			listServers(servers)
+			return true
+			break
+		case 3:
+			const n = selectServerToKill(servers, servers.length - 1)
+			if (n != -1) servers[n].worker.terminate()
+			servers = servers.filter((element, index) => index != n)
+			return true
+			break
+		case 4:
+			servers.forEach((s, i) => {
+				// console.log(`Closing server "${s.name}"...`)
+				servers[i].worker.terminate()
+			})
+			exit()
+			break
+		default:
+			console.log('Not a number, prease enter a valid input')
+			return true
+			break
+	}
+}
+
+let running = true
+
+while (running) {
+	running = loop()
+}
