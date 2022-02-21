@@ -92,5 +92,5 @@ Using Cmder as default terminal and do not want to install anything? I got you c
 
 # Build <a name="build"></a>
 
-It's as easy as eating an apple! Just run `npm run build:win` or `yarn build:win` if you're using an OS that is not windows, or else just run `npm run build ` or ` yarn build` and you're done!<br>
+It's as easy as eating an apple! If you already have all the dependencies working, just run `npm run build` or `yarn build` and you're done!<br>
 You can find the output binary in the `dist` folder.

@@ -13,3 +13,6 @@ if os.path.exists(os.path.join(dist_folder, compiled_name_uncompressed)):
 
 os.system(f'nexe -i ./src/index.js -b --verbose --temp ./temp/ -o {os.path.join(dist_folder, compiled_name_uncompressed)}')
 os.system(f'upx -9 -v -o {os.path.join(dist_folder, compiled_name)} {os.path.join(dist_folder, compiled_name_uncompressed)}')
+
+if os.path.exists(os.path.join(dist_folder, compiled_name_uncompressed)):
+    os.remove(os.path.join(dist_folder, compiled_name_uncompressed))
