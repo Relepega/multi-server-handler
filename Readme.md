@@ -1,8 +1,10 @@
+<!-- @format -->
+
 # Multi Server Handler <a name="introduction"></a>
 
 <img src="./readme_data/preview.png">
 
-CLI application written in javascript/node that handles multiple servers allocated dinamically who are serving a static folder.
+CLI application written in JavaScript/Node that handles multiple servers allocated dynamically who are serving a static folder.
 
 ## Table of Contents <a name="Table-of-Contents"></a>
 
@@ -48,6 +50,7 @@ To build the binary we use [nexe](https://github.com/nexe/nexe).
 
 -   10gb of free space
 -   For windows: [NASM](https://nasm.us/)
+-   [UPX](https://upx.github.io/)
 -   [Python](https://python.org)
 -   Internet connection
 
@@ -67,6 +70,7 @@ Cmder user? [Go here](#cmder-setup)
 -   Open up a console and type `nasm -h`
 -   If you see this, even after a complete system restart, it means you didn't actually paste the right installation path in the system enviroment variables. <br> <img src="./readme_data/win_004.png">
 -   else, if you see things like this, it means nasm is correctly installed. Congrats! <br> <img src="./readme_data/win_005.png">
+-   Do the same procedure with [UPX](https://upx.github.io/)
 -   Download the latest [python](https://python.org) version (v3.10.2 as time of writing).
 -   Open the installer and before installing, tick the `Add to PATH` option like this and click install, if it gives you a path length warning, click ok/yes and go on. <br> <img src="./readme_data/win_006.png">
 -   Now you're ready to go!
@@ -79,6 +83,7 @@ Using Cmder as default terminal and do not want to install anything? I got you c
 -   Download the latest [Python](https://python.org) **portable** version for your architecture (v3.10.2 as time of writing)
 -   Go to `%CMDER_ROOT%/bin`
 -   Extract the two zips EXACTLY with this folder depth: <br> <img src="./readme_data/win_007.png"> <br> <img src="./readme_data/win_008.png">
+-   Do the same for [UPX](https://upx.github.io/)
 -   Open `%CMDER_ROOT%/vendor/init.bat`, set `max_depth=3`, save and close.
 -   Done! Easier than installing all the things, right?
 

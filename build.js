@@ -1,6 +1,15 @@
 const { compile } = require('nexe')
-const UPX = require('upx')({ better: true })
 const { platform } = require('process')
+
+// const download = require('download')
+
+// // File URL
+// const url = `https://acquirebase.com/img/logo.png`
+
+// // Download the file
+// ;(async () => {
+// 	await download(url, './')
+// })()
 
 const name = platform == 'win32' ? './dist/multi-server-handler_uncompressed' : './dist/multi-server-handler'
 
