@@ -9,13 +9,13 @@ const BASE_PORT = 3000
 let servers = []
 let servers_ran = 0
 
-const setTerminalTitle = (title) => {
+const setTerminalTitle = title => {
 	process.stdout.write(String.fromCharCode(27) + ']0;' + title + String.fromCharCode(7))
 }
 
-const runService = (workerData) => {
+const runService = workerData => {
 	const worker = new Worker('./worker.js', { workerData })
-	worker.on('message', (e) => {
+	worker.on('message', e => {
 		console.log(e)
 	})
 	// worker.on('error', reject)

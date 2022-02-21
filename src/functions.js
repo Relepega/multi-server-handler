@@ -17,7 +17,7 @@ const spinUp = (cb, port) => {
 	return { ...data, worker }
 }
 
-const listServers = (servers) => {
+const listServers = servers => {
 	console.clear()
 	console.log('\tListing of running servers:\n')
 

@@ -49,10 +49,13 @@ To build the binary we use [nexe](https://github.com/nexe/nexe).
 ## Requirements <a name="requirements"></a>
 
 -   10gb of free space
+-   Internet connection
 -   For windows: [NASM](https://nasm.us/)
 -   [UPX](https://upx.github.io/)
 -   [Python](https://python.org)
--   Internet connection
+-   [NodeJS](https://nodejs.org/en/) (nvm is better)
+-   [NPM](https://www.npmjs.com/) (on windows it comes bundled in nodejs installer)
+-   [Nexe](https://github.com/nexe/nexe) `npm i -D nexe`
 
 ## Setting up the Build Enviroment on Windows <a name="setup-windows-build-enviroment"></a>
 
