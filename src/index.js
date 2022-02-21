@@ -1,13 +1,17 @@
-const { exit, platform } = require('process')
+const process = require('process')
 const { Worker } = require('worker_threads')
 const { spinUp, listServers, selectServerToKill } = require('./functions')
 
-const scanf = require('prompt-sync')({ sigint: true })
+const input = require('prompt-sync')({ sigint: true })
 
 const BASE_PORT = 3000
 
 let servers = []
 let servers_ran = 0
+
+const setTerminalTitle = (title) => {
+	process.stdout.write(String.fromCharCode(27) + ']0;' + title + String.fromCharCode(7))
+}
 
 const runService = (workerData) => {
 	const worker = new Worker('./worker.js', { workerData })
@@ -23,6 +27,8 @@ const runService = (workerData) => {
 }
 
 const loop = () => {
+	process.title = 'Multiple Static Servers Handler'
+
 	console.clear()
 
 	console.log('\t\tMulti Static Sites Server\n')
@@ -31,7 +37,9 @@ const loop = () => {
 	console.log('3. Kill a server')
 	console.log('4. Quit the app and kill all the servers')
 
-	choice = scanf('\n>>> ')
+	console.log('\n')
+
+	choice = input('>>> ')
 
 	switch (Number(choice)) {
 		case 1:
@@ -53,7 +61,7 @@ const loop = () => {
 				// console.log(`Closing server "${s.name}"...`)
 				servers[i].worker.terminate()
 			})
-			exit()
+			process.exit()
 			break
 		default:
 			console.log('Not a number, prease enter a valid input')

@@ -1,16 +1,21 @@
 {
-  "name": "multi-server-handler",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "express.js": "^1.0.0",
-    "prompt-sync": "^4.2.0"
-  }
+	"name": "multi-server-handler",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "node index.js",
+		"build": "",
+		"build:win": "node build.js && \"./upx-3.96-win64/upx.exe\" -9 -v -o \"dist/multi-server-handler.exe\" \"dist/multi-server-handler_uncompressed.exe\""
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"express.js": "^1.0.0",
+		"prompt-sync": "^4.2.0"
+	},
+	"devDependencies": {
+		"nexe": "^4.0.0-beta.19"
+	}
 }
