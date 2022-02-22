@@ -1,10 +1,11 @@
 {
 	"name": "multi-server-handler",
 	"version": "1.0.0",
-	"description": "",
+	"description": "CLI application written in JavaScript/Node that handles multiple servers allocated dynamically that are serving a static folder.",
 	"main": "index.js",
 	"scripts": {
-		"start": "node index.js"
+		"start": "node index.js",
+		"build": "python build.py"
 	},
 	"keywords": [
 		"node",

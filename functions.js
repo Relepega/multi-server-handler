@@ -1,6 +1,8 @@
 const input = require('prompt-sync')({ sigint: true })
+const path = require('path')
+const { fork } = require('child_process')
 
-const spinUp = (cb, port) => {
+const spinUp = port => {
 	console.clear()
 	console.log('\tConfiguring your server:\n')
 
@@ -8,13 +10,18 @@ const spinUp = (cb, port) => {
 	const path = input('Path: ')
 
 	let data = { name, path, port }
-	const worker = cb(data)
+	const thread = fork('./thread.js')
+	thread.send(data)
+
+	// thread.on('message', msg => {
+	// 	console.log('msg from children: ' + msg)
+	// })
 
 	console.log(`\nserver '${name}' is up on http://localhost:${port}`)
 	console.log('\n\n')
 	input('Press enter to continue...')
 
-	return { ...data, worker }
+	return { ...data, thread, PID: thread.pid }
 }
 
 const listServers = servers => {
@@ -26,7 +33,7 @@ const listServers = servers => {
 	if (servers.length == 0) console.log('No active servers')
 	else {
 		servers.forEach((s, i) => {
-			list = [...list, { slug: s.name }]
+			list = [...list, { slug: s.name, PID: s.PID }]
 		})
 		console.table(list)
 	}

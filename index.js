@@ -1,7 +1,5 @@
 const path = require('path')
-// const os = require('os')
 const process = require('process')
-const { Worker } = require('worker_threads')
 const { spinUp, listServers, selectServerToKill } = require('./functions')
 
 const input = require('prompt-sync')({ sigint: true })
@@ -15,22 +13,12 @@ const setTerminalTitle = title => {
 	process.stdout.write(String.fromCharCode(27) + ']0;' + title + String.fromCharCode(7))
 }
 
-const runService = workerData => {
-	const worker = new Worker('./worker.js', { workerData })
-	worker.on('message', e => {
-		console.log(e)
-	})
-	// worker.on('error', reject)
-	// worker.on('exit', (code) => {
-	// 	if (code !== 0) reject(new Error(`Stopped the Worker Thread with the exit code: ${code}`))
-	// })
+const title = 'Multiple Static Servers Handler'
 
-	return worker
-}
+setTerminalTitle(title)
+process.title = title
 
 const loop = () => {
-	process.title = 'Multiple Static Servers Handler'
-
 	console.clear()
 
 	console.log('\t\tMulti Static Sites Server\n')
@@ -45,7 +33,7 @@ const loop = () => {
 
 	switch (Number(choice)) {
 		case 1:
-			servers = [...servers, spinUp(runService, BASE_PORT + servers_ran++)]
+			servers = [...servers, spinUp(BASE_PORT + servers_ran++)]
 			return true
 			break
 		case 2:
@@ -54,14 +42,14 @@ const loop = () => {
 			break
 		case 3:
 			const n = selectServerToKill(servers, servers.length - 1)
-			if (n != -1) servers[n].worker.terminate()
+			if (n != -1) servers[n].thread.kill()
 			servers = servers.filter((element, index) => index != n)
 			return true
 			break
 		case 4:
 			servers.forEach((s, i) => {
 				// console.log(`Closing server "${s.name}"...`)
-				servers[i].worker.terminate()
+				servers[i].thread.kill()
 			})
 			process.exit()
 			break
