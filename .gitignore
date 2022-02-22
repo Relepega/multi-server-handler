@@ -1,4 +1,5 @@
 node_modules
 temp
 dist
+data
 yarn-error.log

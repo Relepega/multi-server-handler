@@ -4,10 +4,19 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "node index.js",
-		"build": "python build.py"
+		"start": "node index.js"
 	},
-	"keywords": [],
+	"keywords": [
+		"node",
+		"nodejs",
+		"javascript",
+		"js",
+		"express",
+		"multiple",
+		"server",
+		"nexe",
+		"thread"
+	],
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
