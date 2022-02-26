@@ -119,13 +119,15 @@ You can find the output binary in the `dist` folder.
 
 # Todo <a name="todo"></a>
 
--   [ ] check if a port is already in use
+-   [x] check if a port is already in use
 -   [ ] check if `express.static(path)` recieves an actually valid path
 -   [ ] CLI colors?
+-   [ ] interactive choices
 -   [ ] fix all the bugs that will be found
 -   [ ] restart server(s)
--   [ ] bind by default to local ip address and not to the loopback address (127.0.0.1 or localhost)
--   [ ] custom server configuration:
+-   custom server configuration:
     -   [ ] port
-    -   [ ] ip
--   [ ] show server(s) uptime
+-   server infos:
+    -   [x] port
+    -   [x] path
+    -   [x] uptime

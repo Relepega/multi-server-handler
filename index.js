@@ -5,6 +5,7 @@ const { spinUp, listServers, selectServerToKill } = require('./functions')
 const input = require('prompt-sync')({ sigint: true })
 
 const BASE_PORT = 3000
+let last_used_port = BASE_PORT
 
 let servers = []
 let servers_ran = 0
@@ -13,12 +14,25 @@ const setTerminalTitle = title => {
 	process.stdout.write(String.fromCharCode(27) + ']0;' + title + String.fromCharCode(7))
 }
 
+const isPortFree = port =>
+	new Promise(resolve => {
+		const server = require('http')
+			.createServer()
+			.listen(port, () => {
+				server.close()
+				resolve(true)
+			})
+			.on('error', () => {
+				resolve(false)
+			})
+	})
+
 const title = 'Multiple Static Servers Handler'
 
-setTerminalTitle(title)
+// setTerminalTitle(title)
 process.title = title
 
-const loop = () => {
+const loop = async () => {
 	console.clear()
 
 	console.log('\t\tMulti Static Sites Server\n')
@@ -33,7 +47,8 @@ const loop = () => {
 
 	switch (Number(choice)) {
 		case 1:
-			servers = [...servers, spinUp(BASE_PORT + servers_ran++)]
+			;(await isPortFree(last_used_port)) ? last_used_port : await isPortFree(++last_used_port)
+			servers = [...servers, spinUp('localhost', last_used_port)]
 			return true
 			break
 		case 2:
@@ -60,8 +75,10 @@ const loop = () => {
 	}
 }
 
-let running = true
+;(async () => {
+	let running = true
 
-while (running) {
-	running = loop()
-}
+	while (running) {
+		running = await loop()
+	}
+})()
