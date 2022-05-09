@@ -3,7 +3,7 @@ import platform
 
 dist_folder = 'dist'
 compiled_name_uncompressed = 'uncompressed.exe' if platform.system() == 'Windows' else 'uncompressed'
-compiled_name = 'multi-server-handler.exe' if platform.system() == 'Windows' else 'multi-server-handler'
+compiled_name = 'multi-server-handler_node-18-1-0.exe' if platform.system() == 'Windows' else 'multi-server-handler_node-18-1-0'
 
 if os.path.exists(os.path.join(dist_folder, compiled_name)):
     os.remove(os.path.join(dist_folder, compiled_name))

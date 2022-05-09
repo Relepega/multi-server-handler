@@ -1,6 +1,6 @@
 const path = require('path')
 const process = require('process')
-const { spinUp, listServers, selectServerToKill } = require('./functions')
+const { checkServerData, listServers, selectServer, spinUp } = require('./functions')
 
 const input = require('prompt-sync')({ sigint: true })
 
@@ -39,7 +39,8 @@ const loop = async () => {
 	console.log('1. Spin up a server')
 	console.log('2. Show up running servers')
 	console.log('3. Kill a server')
-	console.log('4. Quit the app and kill all the servers')
+	console.log('4. Restart a server')
+	console.log('5. Quit the app and kill all the servers')
 
 	console.log('\n')
 
@@ -48,20 +49,41 @@ const loop = async () => {
 	switch (Number(choice)) {
 		case 1:
 			;(await isPortFree(last_used_port)) ? last_used_port : await isPortFree(++last_used_port)
-			servers = [...servers, spinUp('localhost', last_used_port)]
+			let newServer = checkServerData('localhost', last_used_port)
+			if (typeof newServer == 'object') servers = [...servers, newServer]
 			return true
 			break
 		case 2:
 			listServers(servers)
+			console.log('\n\n')
+			input('Press enter to continue...')
 			return true
 			break
 		case 3:
-			const n = selectServerToKill(servers, servers.length - 1)
+			console.clear()
+			const n = selectServer(servers, servers.length - 1, 'Index of the server you want to kill?')
 			if (n != -1) servers[n].thread.kill()
 			servers = servers.filter((element, index) => index != n)
 			return true
 			break
 		case 4:
+			if (servers.length == 0) {
+				console.clear()
+				console.log('No active servers')
+				console.log('\n\n')
+				input('Press enter to continue...')
+			}
+			listServers(servers)
+
+			const i = selectServer(servers, servers.length - 1, 'Index of the server you want to restart?')
+			const { name, path: serverPath, address, port } = servers[i]
+			if (i != -1) servers[i].thread.kill()
+			servers = servers.filter((element, index) => index != i)
+
+			servers = [...servers, spinUp({ name, path: serverPath, address, port })]
+			return true
+			break
+		case 5:
 			servers.forEach((s, i) => {
 				// console.log(`Closing server "${s.name}"...`)
 				servers[i].thread.kill()
